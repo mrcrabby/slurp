@@ -1,0 +1,10 @@
+To use slurp, you need :
+    - Python
+    - BeautifulSoup
+
+And then, just launch : python slurp.py
+It will create a Disney folder by default where the script stands.
+
+You can tell slurp where you want to download by using the -d or --dest option.
+Use the -h option to print the help.
+
