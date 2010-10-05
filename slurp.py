@@ -197,9 +197,13 @@ def main():
                         sys.stdout.flush()
                         comic_file = urllib2.urlopen(url + img['href'])
                         comic_file_path = os.path.join(comic_path, img['href'])
-                        output = open(comic_file_path, 'wb')
-                        output.write(comic_file.read())
-                        output.close()
+                        try:
+                            output = open(comic_file_path, 'wb')
+                            output.write(comic_file.read())
+                            output.close()
+                        except IOError:
+                            #there is a folder in the comic folder
+                            pass
                         comic_advance += 1
                         if comic_advance == nb_page:
                             sys.stdout.write("Done : %d/%d pages  \r" \
