@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python -B
 # -*- coding: utf-8 -*-
 
 '''
@@ -43,6 +43,19 @@ except ImportError:
     print '\t- via Pypi : sudo easy_install beautifulsoup'
     sys.exit(1)
 
+def fat32_valid(path):
+    '''
+    Take a path and clean it
+    to be fat32 compatible.
+    Replace all invalid char by _
+    return the modified path
+    '''
+    invalid_char = ['"', '*', ':', \
+                    '<', '>', '?', \
+                    '|', ]
+    for invalid in invalid_char:
+        path = path.replace(invalid, '_')
+    return path
 
 def main():
     '''
@@ -118,9 +131,12 @@ def main():
                     print "Year : " + year
                     nb_page = int(''.join(comic.contents[9].findAll(text=True)))
                     print "Nb Page : " + str(nb_page)
-                    comic_path = os.path.join(dest, \
-                                              'Disney', author[0], star, \
+                    base_path = os.path.join('Disney', author[0], star, \
                                               year, title)
+                    #Just replace invalid char in the filename for win32
+                    if sys.platform == "win32" :
+                        base_path = fat32_valid(base_path)
+                    comic_path = os.path.join(dest, base_path)
                     
                 else:
                     # Paul Murry's page is different :/
@@ -153,9 +169,12 @@ def main():
                     nb_page = int(''.join(comic.contents[7].\
                                   findAll(text=True)))
                     print "Nb Page : " + str(nb_page)
-                    comic_path = os.path.join(dest, \
-                                              'Disney', author[0], \
+                    base_path = os.path.join('Disney', author[0], \
                                               'Mickey Mouse', year, title)
+                    #Just replace invalid char in the filename for win32
+                    if sys.platform == "win32" :
+                        base_path = fat32_valid(base_path)
+                    comic_path = os.path.join(dest, base_path)
                     
                 # Create folder structure
                 if not os.path.exists(comic_path):
