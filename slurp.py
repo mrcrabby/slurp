@@ -79,7 +79,7 @@ def main():
                 dest = options.dest
         else:
             print 'The destination : ' + options.dest,
-            print ' does not exists or is not a folder.'         
+            print ' does not exists or is not a folder.'
             sys.exit(1)
 
     authors = [ \
@@ -94,18 +94,18 @@ def main():
                 ('Sunday Strips', 'index_sunday.php'), \
                 ('Daily Strips', 'index_dailies.php'), \
               ]
-              
+
     different_struc = ['Paul Murry', 'Sunday Strips', 'Daily Strips']
     top_url = 'http://disneycomics.free.fr/'
-    
+
     for author in authors:
         html = urllib2.urlopen(top_url + author[1])
         data = html.read()
         html.close()
-        
+
         soup = BeautifulSoup(''.join(data))
         main_table = soup.table
-                
+
         count = 0
         for comic in main_table.findAll('tr'):
             if count != 0:
@@ -137,7 +137,7 @@ def main():
                     if sys.platform == "win32" :
                         base_path = fat32_valid(base_path)
                     comic_path = os.path.join(dest, base_path)
-                    
+
                 else:
                     # Paul Murry's page is different :/
                     print 'Author : ' + author[0]
@@ -155,7 +155,7 @@ def main():
                         inducks = str(inducks.split('=')[1])
                         url = comic.contents[3].find('a')['href'].split('/')
                         url = str(top_url + url[0] + '/' + inducks + '/')
-                        
+
                     print "URL : " + url
                     title = str(comic.contents[3].findAll(text=True)[0])
                     print "Title : " + title
@@ -175,16 +175,16 @@ def main():
                     if sys.platform == "win32" :
                         base_path = fat32_valid(base_path)
                     comic_path = os.path.join(dest, base_path)
-                    
+
                 # Create folder structure
                 if not os.path.exists(comic_path):
                     os.makedirs(comic_path)
-              
+
                 # Get the dir with the images
                 html = urllib2.urlopen(url)
                 data = html.read()
                 html.close()
-                
+
                 soup = BeautifulSoup(''.join(data))
                 count_img = 0
                 sys.stdout.write("Done : 0/%d pages  \r" % (nb_page) )
@@ -205,11 +205,11 @@ def main():
                             sys.stdout.write("Done : %d/%d pages  \r" \
                                              % (comic_advance, nb_page) )
                             sys.stdout.flush()
-                            print                          
+                            print
                     else:
                         count_img += 1
             else:
-                count += 1            
+                count += 1
 
 if __name__ == '__main__' :
     try:
