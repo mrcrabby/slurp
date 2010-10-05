@@ -83,15 +83,15 @@ def main():
             sys.exit(1)
 
     authors = [ \
-                ('Carl Barks', 'index_barks_date.php'), \
-                ('Don Rosa', 'index_rosa_date.php'), \
-                ('Marco Rota', 'index_rota_date.php'), \
-                ('Romano Scarpa', 'index_scarpa_date.php'), \
-                ('Tony Strobl', 'index_strobl_date.php'), \
-                ('Vicar', 'index_vicar_date.php'), \
-                ('William Van Horn', 'index_vanhorn_date.php'), \
-                ('Paul Murry', 'index_murry_date.php'), \
-                ('Sunday Strips', 'index_sunday.php'), \
+                #('Carl Barks', 'index_barks_date.php'), \
+                #('Don Rosa', 'index_rosa_date.php'), \
+                #('Marco Rota', 'index_rota_date.php'), \
+                #('Romano Scarpa', 'index_scarpa_date.php'), \
+                #('Tony Strobl', 'index_strobl_date.php'), \
+                #('Vicar', 'index_vicar_date.php'), \
+                #('William Van Horn', 'index_vanhorn_date.php'), \
+                #('Paul Murry', 'index_murry_date.php'), \
+                #('Sunday Strips', 'index_sunday.php'), \
                 ('Daily Strips', 'index_dailies.php'), \
               ]
 
@@ -144,7 +144,7 @@ def main():
                     id_comic = str(''.join(comic.contents[1].\
                                    findAll(text=True)))
                     print 'Comics number :' + id_comic + ' (for this author)'
-                    inducks = str(comic.contents[5].find('a')['href'])
+                    inducks = str(comic.contents[3].find('a')['href'])
                     try:
                         inducks = str(inducks.split('=')[2])
                         url = comic.contents[3].find('a')['href'].split('/')
